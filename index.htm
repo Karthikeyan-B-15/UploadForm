@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload documents</title>
+   
+    
+
+</head>
+<body>
+    <form action="details.htm">
+        <label for="img">Upload image:</label>
+        <input type="file" id="img" accept="image/*">
+        <input type="file" accept=".json" id="json_input">
+        <input type="submit" value="Submit">
+    </form>
+   <script>
+      document.querySelector("#img").addEventListener("change",function(){
+        const reader=new FileReader();
+        reader.addEventListener("load",()=>{
+        localStorage.setItem("inputimage", reader.result);
+
+        }); 
+        reader.readAsDataURL(this.files[0]);
+        });
+       
+        document.getElementById("json_input").addEventListener("change", function() {
+          var infile = document.getElementById("json_input").files[0];
+          var fileread = new FileReader();
+          fileread.onload = function(e) {
+            var content = e.target.result;
+            var data = JSON.parse(content); 
+            localStorage.setItem("json_file", JSON.stringify(data));
+          };
+          fileread.readAsText(infile);
+        });
+   </script>
+</body>
+</html>
